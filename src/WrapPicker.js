@@ -1,20 +1,22 @@
 import {DatePickerAndroid, TimePickerAndroid} from 'react-native';
 
-const DATE_TYPE = {
+export const DATE_TYPE = {
     DATE: 'date',
     TIME: 'time',
     DATETIME: 'datetime',
 };
+export class WrapIosDatePicker{
+
+}
 
 export class WrapAndroidDatePicker{
-    static TYPE = DATE_TYPE;
-   static async showPicker(type = WrapAndroidDatePicker.TYPE.DATE,confirmHandler,cancelHandler){
+   static async showPicker(type = DATE_TYPE.DATE,confirmHandler,cancelHandler){
        let retTime,retDate;
-       if(type === WrapAndroidDatePicker.TYPE.DATE){
+       if(type === DATE_TYPE.DATE){
            retDate = await WrapAndroidDatePicker._showDatePicker(cancelHandler);
            if(confirmHandler && retDate) confirmHandler(new Date(retDate));
        }
-       else if (type === WrapAndroidDatePicker.TYPE.DATETIME){
+       else if (type === DATE_TYPE.DATETIME){
            retDate = await WrapAndroidDatePicker._showDatePicker();
            retTime = await WrapAndroidDatePicker._showTimePicker();
            if(retDate && retTime && confirmHandler) confirmHandler(new Date(retDate+' '+retTime));
