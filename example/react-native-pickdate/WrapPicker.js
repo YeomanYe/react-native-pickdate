@@ -1,11 +1,82 @@
 import {DatePickerAndroid, TimePickerAndroid} from 'react-native';
+import CustomDatePickerIOS from "./CustomDatePickerIOS";
+import React,{Component} from "react";
+import RootSiblings from "react-native-root-siblings";
 
 export const DATE_TYPE = {
     DATE: 'date',
     TIME: 'time',
     DATETIME: 'datetime',
 };
-export class WrapIosDatePicker{
+export class WrapIosDatePicker extends Component {
+
+    static _datePicker;
+
+    /**
+     * 生成回调函数
+     * @param callback
+     * @returns {Function}
+     * @private
+     */
+    static _genDatePickerCallback(callback){
+        return async function(val){
+            let uClose = false;
+            if(callback){uClose = await callback(val);}
+            if(!uClose)WrapIosDatePicker._hideDatePicker();
+        }
+    }
+
+    /**
+     * 生成datepicker
+     * @param type
+     * @param success
+     * @param cancel
+     * @returns {*}
+     * @private
+     */
+    static _genDatePicker(type,success, cancel){
+        let suc = WrapIosDatePicker._genDatePickerCallback(success),
+            can = WrapIosDatePicker._genDatePickerCallback(cancel);
+        let title;
+        switch (type){
+            case DATE_TYPE.TIME:title = '选择时间';break;
+            case DATE_TYPE.DATETIME:
+            case DATE_TYPE.DATE:title = '选择日期';break;
+        }
+        return (
+            <CustomDatePickerIOS
+                isVisible={true}
+                type={type}
+                titleText={title}
+                onConfirm={suc}
+                cancelText='取消'
+                confirmText='确定'
+                onCancel={can}/>)
+    }
+
+    /**
+     * 显示IOS的date picker
+     * @param type
+     * @param confirmHandler
+     * @param cancelHandler
+     * @returns {*}
+     */
+    static showPicker(type = DATE_TYPE.DATE,confirmHandler,cancelHandler){
+        let dateComp = WrapIosDatePicker._genDatePicker(type,confirmHandler, cancelHandler);
+        if (!WrapIosDatePicker._datePicker) WrapIosDatePicker._datePicker = new RootSiblings(dateComp);
+        else WrapIosDatePicker._datePicker.update(dateComp);
+        return WrapIosDatePicker._datePicker;
+    }
+
+    /**
+     * 隐藏datepicker
+     * @returns {*}
+     * @private
+     */
+    static _hideDatePicker() {
+        if (WrapIosDatePicker._datePicker)
+            return WrapIosDatePicker._datePicker.update(<CustomDatePickerIOS isVisible={false}/>);
+    }
 
 }
 
