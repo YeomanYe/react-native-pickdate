@@ -20,9 +20,8 @@ export class WrapIosDatePicker extends Component {
      */
     static _genDatePickerCallback(callback){
         return async function(val){
-            let uClose = false;
-            if(callback){uClose = await callback(val);}
-            if(!uClose)WrapIosDatePicker._hideDatePicker();
+            await callback(val);
+            WrapIosDatePicker._hideDatePicker();
         }
     }
 

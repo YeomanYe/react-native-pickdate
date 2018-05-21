@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {DatePickerIOS, StyleSheet, Text, TouchableHighlight, View} from 'react-native';
+import {DatePickerIOS, Modal, StyleSheet, Text, TouchableHighlight, View} from 'react-native';
 
 export default class CustomDatePickerIOS extends Component {
     static propTypes = {
@@ -28,14 +28,14 @@ export default class CustomDatePickerIOS extends Component {
 
     state = {
         date: this.props.date,
+        isVisible:false,
         userIsInteractingWithPicker: false,
     };
 
     componentWillReceiveProps(nextProps) {
-        if (this.props.date !== nextProps.date) {
-            this.setState({
-                date: nextProps.date,
-            });
+        let {isVisible} = nextProps;
+        if (isVisible === undefined) {
+            this.setState({isVisible});
         }
     }
 
@@ -85,9 +85,8 @@ export default class CustomDatePickerIOS extends Component {
         const confirmButton = <Text style={[styles.confirmText, confirmTextStyle]}>{confirmText}</Text>;
 
         const cancelButton = <Text style={[styles.cancelText, cancelTextStyle]}>{cancelText}</Text>;
-        if(isVisible)
         return (
-            <View>
+            <Modal transparent={true} visible={isVisible}>
                 <View style={[styles.datepickerContainer]}>
                     {titleContainer}
                     <View onStartShouldSetResponderCapture={this._handleUserTouchInit}>
@@ -114,9 +113,8 @@ export default class CustomDatePickerIOS extends Component {
                     onPress={this._handleCancel}>
                     {cancelButton}
                 </TouchableHighlight>
-            </View>
+            </Modal>
         );
-        return <View/>;
     }
 }
 
