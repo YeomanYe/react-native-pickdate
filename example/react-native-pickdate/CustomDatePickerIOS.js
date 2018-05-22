@@ -11,7 +11,7 @@ export default class CustomDatePickerIOS extends Component {
         onConfirm: PropTypes.func,
         onCancel: PropTypes.func,
         titleText: PropTypes.string,
-        isVisible:PropTypes.bool,
+        isVisible: PropTypes.bool,
         titleStyle: PropTypes.any,
         confirmTextStyle: PropTypes.any,
         cancelTextStyle: PropTypes.any,
@@ -28,7 +28,7 @@ export default class CustomDatePickerIOS extends Component {
 
     state = {
         date: this.props.date,
-        isVisible:false,
+        isVisible: false,
         userIsInteractingWithPicker: false,
     };
 
@@ -41,12 +41,12 @@ export default class CustomDatePickerIOS extends Component {
 
     _handleCancel = () => {
         let {onCancel} = this.props;
-        if(onCancel)onCancel();
+        if (onCancel) onCancel();
     };
 
     _handleConfirm = () => {
         let {onConfirm} = this.props;
-        if(onConfirm)onConfirm(this.state.date);
+        if (onConfirm) onConfirm(this.state.date);
     };
 
 
@@ -86,33 +86,38 @@ export default class CustomDatePickerIOS extends Component {
 
         const cancelButton = <Text style={[styles.cancelText, cancelTextStyle]}>{cancelText}</Text>;
         return (
-            <Modal transparent={true} visible={isVisible}>
-                <View style={[styles.datepickerContainer]}>
-                    {titleContainer}
-                    <View onStartShouldSetResponderCapture={this._handleUserTouchInit}>
-                        <DatePickerIOS
-                            date={this.state.date}
-                            mode={type}
-                            onDateChange={this._handleDateChange}
-                            {...otherProps}
-                        />
+            <Modal
+                animationType={'slide'}
+                transparent={true}
+                visible={isVisible}>
+                <View style={styles.contentContainer}>
+                    <View style={[styles.datepickerContainer]}>
+                        {titleContainer}
+                        <View onStartShouldSetResponderCapture={this._handleUserTouchInit}>
+                            <DatePickerIOS
+                                date={this.state.date}
+                                mode={type}
+                                onDateChange={this._handleDateChange}
+                                {...otherProps}
+                            />
+                        </View>
+                        <TouchableHighlight
+                            style={styles.confirmButton}
+                            underlayColor='#ebebeb'
+                            onPress={this._handleConfirm}
+                            disabled={this.state.userIsInteractingWithPicker}
+                        >
+                            {confirmButton}
+                        </TouchableHighlight>
                     </View>
+
                     <TouchableHighlight
-                        style={styles.confirmButton}
+                        style={styles.cancelButton}
                         underlayColor='#ebebeb'
-                        onPress={this._handleConfirm}
-                        disabled={this.state.userIsInteractingWithPicker}
-                    >
-                        {confirmButton}
+                        onPress={this._handleCancel}>
+                        {cancelButton}
                     </TouchableHighlight>
                 </View>
-
-                <TouchableHighlight
-                    style={styles.cancelButton}
-                    underlayColor='#ebebeb'
-                    onPress={this._handleCancel}>
-                    {cancelButton}
-                </TouchableHighlight>
             </Modal>
         );
     }
@@ -127,9 +132,10 @@ const BUTTON_FONT_WEIGHT = 'normal';
 const BUTTON_FONT_COLOR = '#007ff9';
 const BUTTON_FONT_SIZE = 20;
 
-var styles =  StyleSheet.create({
+var styles = StyleSheet.create({
     contentContainer: {
         justifyContent: 'flex-end',
+        flex:1,
         margin: 10,
     },
     datepickerContainer: {
