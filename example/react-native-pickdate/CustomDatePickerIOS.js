@@ -100,7 +100,6 @@ export default class CustomDatePickerIOS extends Component {
                             <DatePickerIOS
                                 date={this.state.date}
                                 mode={type}
-                                onDateChange={()=>{}}
                                 {...otherProps}
                             />
                         </View>
@@ -108,7 +107,6 @@ export default class CustomDatePickerIOS extends Component {
                             style={styles.confirmButton}
                             underlayColor='#ebebeb'
                             onPress={this._handleConfirm}
-                            disabled={this.state.userIsInteractingWithPicker}
                         >
                             {confirmButton}
                         </TouchableHighlight>
