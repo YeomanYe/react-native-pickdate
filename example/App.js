@@ -33,6 +33,7 @@ export default class App extends Component<Props> {
         }
         let self = this;
         return (date)=>{
+            console.log('date',date);
             let curSel = format(date,formatStr);
             self.setState({curSel});
         }

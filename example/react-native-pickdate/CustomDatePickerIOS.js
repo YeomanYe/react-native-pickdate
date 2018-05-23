@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {DatePickerIOS, Modal, StyleSheet, Text, TouchableHighlight, View} from 'react-native';
+import {DatePickerIOS, Modal, StyleSheet, Text, TouchableHighlight, View, Dimensions} from 'react-native';
 
+const {width,height} = Dimensions.get('window');
 export default class CustomDatePickerIOS extends Component {
     static propTypes = {
         cancelText: PropTypes.string,
@@ -46,6 +47,7 @@ export default class CustomDatePickerIOS extends Component {
 
     _handleConfirm = () => {
         let {onConfirm} = this.props;
+        console.log('onConfirm',onConfirm);
         if (onConfirm) onConfirm(this.state.date);
     };
 
@@ -86,8 +88,9 @@ export default class CustomDatePickerIOS extends Component {
 
         const cancelButton = <Text style={[styles.cancelText, cancelTextStyle]}>{cancelText}</Text>;
         return (
-            <Modal
-                animationType={'slide'}
+            <View
+                style={{display:isVisible ? 'flex' : 'none',backgroundColor:'rgba(0,0,0,0.3)',position:'absolute',top:0,width,height}}
+                animationType={'none'}
                 transparent={true}
                 visible={isVisible}>
                 <View style={styles.contentContainer}>
@@ -97,7 +100,7 @@ export default class CustomDatePickerIOS extends Component {
                             <DatePickerIOS
                                 date={this.state.date}
                                 mode={type}
-                                onDateChange={this._handleDateChange}
+                                onDateChange={()=>{}}
                                 {...otherProps}
                             />
                         </View>
@@ -118,7 +121,7 @@ export default class CustomDatePickerIOS extends Component {
                         {cancelButton}
                     </TouchableHighlight>
                 </View>
-            </Modal>
+            </View>
         );
     }
 }
