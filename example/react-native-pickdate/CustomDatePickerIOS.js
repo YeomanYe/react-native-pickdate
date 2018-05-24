@@ -76,7 +76,6 @@ export default class CustomDatePickerIOS extends Component {
             confirmTextStyle,
             cancelTextStyle,
             isVisible,
-            ...otherProps
         } = this.props;
 
         const titleContainer = (
@@ -96,11 +95,11 @@ export default class CustomDatePickerIOS extends Component {
                 <View style={styles.contentContainer}>
                     <View style={[styles.datepickerContainer]}>
                         {titleContainer}
-                        <View onStartShouldSetResponderCapture={this._handleUserTouchInit}>
+                        <View>
                             <DatePickerIOS
                                 date={this.state.date}
+                                onDateChange={this._handleDateChange}
                                 mode={type}
-                                {...otherProps}
                             />
                         </View>
                         <TouchableHighlight
