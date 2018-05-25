@@ -1,0 +1,44 @@
+{
+  "name": "react-native-pickdate",
+  "version": "1.0.0",
+  "description": "A react-native picker datetime for Android and iOS",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/YeomanYe/react-native-pickdate.git"
+  },
+  "keywords": [
+    "react-native",
+    "android",
+    "ios",
+    "date",
+    "datetime",
+    "time",
+    "picker",
+    "react-native-app"
+  ],
+  "dependencies": {
+    "prop-types": "^15.6.1",
+    "react-native-root-siblings": "^3.1.0",
+  },
+  "devDependencies": {
+    "react": "16.3.1",
+    "react-native": "0.55.4",
+    "babel-jest": "22.4.3",
+    "babel-preset-react-native": "4.0.0",
+    "jest": "22.4.3",
+    "react-test-renderer": "16.3.1"
+  },
+  "author": "FWHeart",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/YeomanYe/react-native-pickdate/issues"
+  },
+  "homepage": "https://github.com/YeomanYe/react-native-pickdate#readme"
+}

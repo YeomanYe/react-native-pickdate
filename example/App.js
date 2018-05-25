@@ -46,19 +46,30 @@ export default class App extends Component<Props> {
                 <TouchableOpacity
                     onPress={()=>pickDate(this.createUpdate('date'))}>
                     <View style={styles.button}>
-                        <Text>选择日期</Text>
+                        <Text>Pick date</Text>
                     </View>
                 </TouchableOpacity>
                 <TouchableOpacity
                     onPress={()=>pickDate(this.createUpdate('time'),pickDate.TYPE.TIME)}>
                     <View style={styles.button}>
-                        <Text>选择时间</Text>
+                        <Text>Pick time</Text>
                     </View>
                 </TouchableOpacity>
                 <TouchableOpacity
                     onPress={()=>pickDate(this.createUpdate('datetime'),pickDate.TYPE.DATETIME)}>
                     <View style={styles.button}>
-                        <Text>选择日期和时间</Text>
+                        <Text>Pick datetime</Text>
+                    </View>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    onPress={()=>pickDate({
+                            onConfirm:this.createUpdate('datetime'),
+                            type:pickDate.TYPE.DATETIME,
+                            is24Hour:false,
+                            date:new Date('2000-10-10')
+                        })}>
+                    <View style={styles.button}>
+                        <Text>Pick datetime by options</Text>
                     </View>
                 </TouchableOpacity>
                 <Text style={styles.text}>{curSel}</Text>

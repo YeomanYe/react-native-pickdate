@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {DatePickerIOS, Modal, StyleSheet, Text, TouchableHighlight, View, Dimensions} from 'react-native';
+import {DatePickerIOS, StyleSheet, Text, TouchableHighlight, View, Dimensions} from 'react-native';
 
 const {width,height} = Dimensions.get('window');
 export default class CustomDatePickerIOS extends Component {
@@ -12,10 +12,7 @@ export default class CustomDatePickerIOS extends Component {
         onConfirm: PropTypes.func,
         onCancel: PropTypes.func,
         titleText: PropTypes.string,
-        isVisible: PropTypes.bool,
-        titleStyle: PropTypes.any,
-        confirmTextStyle: PropTypes.any,
-        cancelTextStyle: PropTypes.any,
+        isVisible: PropTypes.bool
     };
 
     static defaultProps = {
@@ -42,13 +39,13 @@ export default class CustomDatePickerIOS extends Component {
 
     _handleCancel = () => {
         let {onCancel} = this.props;
-        if (onCancel) onCancel();
+        onCancel();
     };
 
     _handleConfirm = () => {
         let {onConfirm} = this.props;
-        console.log('onConfirm',onConfirm);
-        if (onConfirm) onConfirm(this.state.date);
+        // console.log('onConfirm',onConfirm);
+        onConfirm(this.state.date);
     };
 
 
@@ -59,33 +56,23 @@ export default class CustomDatePickerIOS extends Component {
         });
     };
 
-    _handleUserTouchInit = () => {
-        this.setState({
-            userIsInteractingWithPicker: true,
-        });
-        return false;
-    };
-
     render() {
         const {
             type,
             titleText,
             confirmText,
             cancelText,
-            titleStyle,
-            confirmTextStyle,
-            cancelTextStyle,
             isVisible,
         } = this.props;
 
         const titleContainer = (
             <View style={styles.titleContainer}>
-                <Text style={[styles.title, titleStyle]}>{titleText}</Text>
+                <Text style={[styles.title]}>{titleText}</Text>
             </View>
         );
-        const confirmButton = <Text style={[styles.confirmText, confirmTextStyle]}>{confirmText}</Text>;
+        const confirmButton = <Text style={[styles.confirmText]}>{confirmText}</Text>;
 
-        const cancelButton = <Text style={[styles.cancelText, cancelTextStyle]}>{cancelText}</Text>;
+        const cancelButton = <Text style={[styles.cancelText]}>{cancelText}</Text>;
         return (
             <View
                 style={{display:isVisible ? 'flex' : 'none',backgroundColor:'rgba(0,0,0,0.3)',position:'absolute',top:0,width,height}}
