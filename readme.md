@@ -5,12 +5,68 @@ A simple way to pick date through native date-picker and time-picker inside a mo
 ```html
 import pickDate from 'react-native-pickdate';
 
- <TouchableOpacity
-    onPress={()=>pickDate(confirmHandler,pickDate.TYPE.TIME)}>
-    <View style={styles.button}>
-        <Text>选择日期</Text>
-    </View>
-</TouchableOpacity>
+export default class App extends Component<Props> {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            curSel: '未选择'
+        };
+    }
+
+    createUpdate(type){
+        let formatStr;
+        switch (type){
+            case 'date':formatStr = 'YYYY-MM-dd';break;
+            case 'time':formatStr = 'hh:mm';break;
+            case 'datetime':formatStr = 'YYYY-MM-dd hh:mm';break;
+        }
+        let self = this;
+        return (date)=>{
+            console.log('date',date);
+            let curSel = format(date,formatStr);
+            self.setState({curSel});
+        }
+    }
+
+    render() {
+        let {curSel} = this.state;
+        return (
+            <View style={styles.container}>
+                <TouchableOpacity
+                    onPress={()=>pickDate(this.createUpdate('date'))}>
+                    <View style={styles.button}>
+                        <Text>Pick date</Text>
+                    </View>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    onPress={()=>pickDate(this.createUpdate('time'),pickDate.TYPE.TIME)}>
+                    <View style={styles.button}>
+                        <Text>Pick time</Text>
+                    </View>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    onPress={()=>pickDate(this.createUpdate('datetime'),pickDate.TYPE.DATETIME)}>
+                    <View style={styles.button}>
+                        <Text>Pick datetime</Text>
+                    </View>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    onPress={()=>pickDate({
+                            onConfirm:this.createUpdate('datetime'),
+                            type:pickDate.TYPE.DATETIME,
+                            is24Hour:false,
+                            date:new Date('2000-10-10')
+                        })}>
+                    <View style={styles.button}>
+                        <Text>Pick datetime by options</Text>
+                    </View>
+                </TouchableOpacity>
+                <Text style={styles.text}>{curSel}</Text>
+            </View>
+        );
+    }
+}
 ```
 
 ## screenshot
