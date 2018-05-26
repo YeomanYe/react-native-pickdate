@@ -12,7 +12,7 @@ import {
     TouchableOpacity,
     View
 } from 'react-native';
-import pickDate from './react-native-pickdate';
+import pickDate from 'react-native-pickdate';
 
 type Props = {};
 export default class App extends Component<Props> {

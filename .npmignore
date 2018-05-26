@@ -11,3 +11,4 @@ extras/
 example/
 .eslintrc
 yarn.lock
+screenshot/
