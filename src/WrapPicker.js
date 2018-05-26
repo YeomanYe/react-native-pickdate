@@ -91,37 +91,36 @@ export class WrapAndroidDatePicker {
         type = type || DATE_TYPE.DATE;
         let retTime, retDate;
         if (type === DATE_TYPE.DATE) {
-            retDate = await WrapAndroidDatePicker._showDatePicker(date);
-            if (retDate) {
-                if (onConfirm) onConfirm(new Date(retDate));
+            let {year,month,day} = await WrapAndroidDatePicker._showDatePicker(date);
+            if (year) {
+                if (onConfirm) onConfirm(new Date(year,month,day));
             } else {
                 if (onCancel) onCancel();
             }
         }
         else if (type === DATE_TYPE.DATETIME) {
-            retDate = await WrapAndroidDatePicker._showDatePicker(date);
-            if (!retDate) {
+            let {year,month,day} = await WrapAndroidDatePicker._showDatePicker(date);
+            if (!year) {
                 if (onCancel) onCancel();
                 return;
             }
-            retTime = await WrapAndroidDatePicker._showTimePicker(date, is24Hour);
-            if (retTime) {
-                if (onConfirm) onConfirm(new Date(retDate + ' ' + retTime));
+            let {hour,minute} = await WrapAndroidDatePicker._showTimePicker(date, is24Hour);
+            if (hour) {
+                if (onConfirm) onConfirm(new Date(year,month,day,hour,minute));
             } else {
                 if (onCancel) onCancel();
             }
         } else {
-            retTime = await WrapAndroidDatePicker._showTimePicker(date, is24Hour);
-            retDate = '1970-01-01';
-            if (retTime) {
-                if (onConfirm) onConfirm(new Date(retDate + ' ' + retTime));
+            let {hour,minute} = await WrapAndroidDatePicker._showTimePicker(date, is24Hour);
+            if (hour) {
+                if (onConfirm) onConfirm(new Date(1970,1,1,hour,minute));
             } else {
                 if (onCancel) onCancel();
             }
         }
     }
     static async _showDatePicker(date) {
-        let retDateStr;
+        let retDateObj;
         console.log(date);
         try {
             let {
@@ -136,7 +135,7 @@ export class WrapAndroidDatePicker {
                 // 这里开始可以处理用户选好的年月日三个参数：year, month (0-11), day
                 console.log(year, month, day);
                 month++;
-                retDateStr = prettifyNum(year, month, day, '-');
+                retDateObj = {year, month, day};
             }
         } catch ({
             code,
@@ -144,10 +143,10 @@ export class WrapAndroidDatePicker {
         }) {
             console.warn('Cannot open date picker', message);
         }
-        return retDateStr;
+        return retDateObj;
     }
     static async _showTimePicker(date, is24Hour = true) {
-        let retDateStr = '';
+        let retDateObj;
         date = date || new Date();
         try {
             const {
@@ -162,7 +161,7 @@ export class WrapAndroidDatePicker {
             if (action !== TimePickerAndroid.dismissedAction) {
                 // 这里开始可以处理用户选好的时分两个参数：hour (0-23), minute (0-59)
                 console.log(hour, minute);
-                retDateStr = prettifyNum(hour, minute, ':');
+                retDateObj = {hour,minute};
             }
         } catch ({
             code,
@@ -170,22 +169,6 @@ export class WrapAndroidDatePicker {
         }) {
             console.warn('Cannot open time picker', message);
         }
-        return retDateStr;
+        return retDateObj;
     }
-}
-
-function prettifyNum() {
-    console.log(arguments);
-    let len = arguments.length;
-    let hypen = arguments[len - 1];
-    let nums = [].slice.call(arguments, 0, len - 1);
-    let str = '';
-    for (let num of nums) {
-        if (typeof num === 'number' && num < 10) str += '0' + num + hypen;
-        else if (typeof num === 'number' && num >= 10) str += num + hypen;
-        else str += num.length >= 2 ? num + hypen : '0' + num + hypen;
-    }
-    str = str.substr(0, str.length - 1);
-    // console.log(str);
-    return str;
 }

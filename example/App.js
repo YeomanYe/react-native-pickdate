@@ -6,8 +6,8 @@
 
 import React, {Component} from 'react';
 import {
-    Platform,
     StyleSheet,
+    ToastAndroid,
     Text,
     TouchableOpacity,
     View
@@ -35,6 +35,7 @@ export default class App extends Component<Props> {
         return (date)=>{
             console.log('date',date);
             let curSel = format(date,formatStr);
+            //ToastAndroid.show('curSel:'+curSel,200);
             self.setState({curSel});
         }
     }
@@ -80,6 +81,7 @@ export default class App extends Component<Props> {
 
 function format(date, formatStr) {
     let str = formatStr;
+    //ToastAndroid.show('date:'+date,200);
     let Week = ['日', '一', '二', '三', '四', '五', '六'];
 
     str = str.replace(/yyyy|YYYY/, date.getFullYear());
@@ -100,6 +102,7 @@ function format(date, formatStr) {
 
     str = str.replace(/ss|SS/, date.getSeconds() > 9 ? date.getSeconds().toString() : '0' + date.getSeconds());
     str = str.replace(/s|S/g, date.getSeconds());
+    //ToastAndroid.show('format:'+str,200);
     return str;
 }
 

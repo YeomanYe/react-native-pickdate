@@ -1,5 +1,5 @@
 import {Platform} from 'react-native';
-import {DATE_TYPE, WrapAndroidDatePicker, WrapIosDatePicker} from './lib/WrapPicker';
+import {DATE_TYPE, WrapAndroidDatePicker, WrapIosDatePicker} from './src/WrapPicker';
 
 const IOS = Platform.OS === 'ios';
 
