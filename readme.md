@@ -2,7 +2,7 @@
 A simple way to pick date through native date-picker and time-picker inside a modal.
 
 ## usage
-```html
+```js
 import pickDate from 'react-native-pickdate';
 
 export default class App extends Component<Props> {
