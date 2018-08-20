@@ -10,9 +10,8 @@
     "prop-types": "^15.6.1",
     "react": "16.3.1",
     "react-native": "0.55.4",
-    "react-native-pickdate": "^1.0.0",
-    "react-native-root-siblings": "^3.1.0",
-    "redux": "^4.0.0"
+    "react-native-pickdate": "file:../",
+    "react-native-root-siblings": "^3.1.0"
   },
   "devDependencies": {
     "babel-jest": "22.4.3",
