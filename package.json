@@ -1,10 +1,11 @@
 {
   "name": "react-native-pickdate",
-  "version": "1.0.5",
+  "version": "1.0.7",
   "description": "A react-native pick datetime for Android and iOS",
   "main": "index.js",
   "directories": {
-    "lib": "lib"
+    "lib": "src",
+    "example": "PickDateExample"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -25,6 +26,7 @@
   ],
   "dependencies": {
     "prop-types": "^15.6.1",
+    "redux": "^4.0.0",
     "react-native-root-siblings": "^3.1.0"
   },
   "devDependencies": {
