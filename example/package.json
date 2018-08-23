@@ -10,7 +10,7 @@
     "prop-types": "^15.6.1",
     "react": "16.3.1",
     "react-native": "0.55.4",
-    "react-native-pickdate": "file:../",
+    "react-native-pickdate": "file:..",
     "react-native-root-siblings": "^3.1.0"
   },
   "devDependencies": {

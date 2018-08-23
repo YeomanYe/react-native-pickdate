@@ -92,35 +92,23 @@ export class WrapAndroidDatePicker {
         let retTime, retDate;
         if (type === DATE_TYPE.DATE) {
             let {year,month,day} = await WrapAndroidDatePicker._showDatePicker(date);
-            if (year) {
-                if (onConfirm) onConfirm(new Date(year,month,day));
-            } else {
-                if (onCancel) onCancel();
-            }
+            if (year && onConfirm) onConfirm(new Date(year,month - 1,day));
+            else if (onCancel) onCancel();
         }
         else if (type === DATE_TYPE.DATETIME) {
             let {year,month,day} = await WrapAndroidDatePicker._showDatePicker(date);
-            if (!year) {
-                if (onCancel) onCancel();
-                return;
-            }
+            if (!year && onCancel) return onCancel();
             let {hour,minute} = await WrapAndroidDatePicker._showTimePicker(date, is24Hour);
-            if (hour) {
-                if (onConfirm) onConfirm(new Date(year,month,day,hour,minute));
-            } else {
-                if (onCancel) onCancel();
-            }
+            if (hour && onConfirm) onConfirm(new Date(year,month - 1,day,hour,minute));
+            else if (onCancel) onCancel();
         } else {
             let {hour,minute} = await WrapAndroidDatePicker._showTimePicker(date, is24Hour);
-            if (hour) {
-                if (onConfirm) onConfirm(new Date(1970,1,1,hour,minute));
-            } else {
-                if (onCancel) onCancel();
-            }
+            if (hour && onConfirm) onConfirm(new Date(1970,1,1,hour,minute));
+            else if (onCancel) onCancel();
         }
     }
     static async _showDatePicker(date) {
-        let retDateObj;
+        let retDateObj = {};
         console.log(date);
         try {
             let {
@@ -146,7 +134,7 @@ export class WrapAndroidDatePicker {
         return retDateObj;
     }
     static async _showTimePicker(date, is24Hour = true) {
-        let retDateObj;
+        let retDateObj = {};
         date = date || new Date();
         try {
             const {
