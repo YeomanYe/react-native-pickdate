@@ -1,6 +1,6 @@
 {
   "name": "react-native-pickdate",
-  "version": "1.0.7",
+  "version": "1.0.9",
   "description": "A react-native pick datetime for Android and iOS",
   "main": "index.js",
   "directories": {
