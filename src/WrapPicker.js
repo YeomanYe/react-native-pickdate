@@ -97,7 +97,10 @@ export class WrapAndroidDatePicker {
         }
         else if (type === DATE_TYPE.DATETIME) {
             let {year,month,day} = await WrapAndroidDatePicker._showDatePicker(date);
-            if (!year && onCancel) return onCancel();
+            if (!year){
+                if(onCancel) onCancel();
+                return;
+            }
             let {hour,minute} = await WrapAndroidDatePicker._showTimePicker(date, is24Hour);
             if (hour && onConfirm) onConfirm(new Date(year,month - 1,day,hour,minute));
             else if (onCancel) onCancel();

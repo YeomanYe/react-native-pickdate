@@ -1,6 +1,6 @@
 {
   "name": "react-native-pickdate",
-  "version": "1.0.9",
+  "version": "1.1.0",
   "description": "A react-native pick datetime for Android and iOS",
   "main": "index.js",
   "directories": {
@@ -26,8 +26,7 @@
   ],
   "dependencies": {
     "prop-types": "^15.6.1",
-    "redux": "^4.0.0",
-    "react-native-root-siblings": "^3.1.0"
+    "react-native-root-siblings": "^2.2.0"
   },
   "author": "FWHeart",
   "license": "ISC",
